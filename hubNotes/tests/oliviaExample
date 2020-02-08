@@ -20,10 +20,10 @@ bright = 138
 
 light.brightness = bright
 
-y=-0.78229*x + 0.83386
+#y=-0.78229*x + 0.83386
 	
 while True:
-    key = cv2.waitKey(1) & 0xFF
+key = cv2.waitKey(1) & 0xFF
 
     # if the 'ESC' key is pressed, Quit
     if key == 27:
@@ -39,3 +39,6 @@ while True:
     # 255 is what the console returns when there is no key press...
     elif key != 255:
         print(key)
+
+print("d")
+
