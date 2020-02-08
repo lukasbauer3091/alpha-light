@@ -1,0 +1,14 @@
+from phue import Bridge
+
+b = Bridge('192.168.0.154')
+
+b.connect()
+
+lights = b.get_light_objects()
+
+prnt("go")
+
+for light in lights:
+	light.brightness = 254
+	light.xy = [random.random(),random.random()]
+    
