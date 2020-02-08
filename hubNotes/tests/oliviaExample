@@ -1,6 +1,6 @@
 #!/usr/bin/python
 from phue import Bridge
-import random
+import numpy
 
 b = Bridge('192.168.0.154') # Enter bridge IP here.
 
@@ -8,9 +8,34 @@ b = Bridge('192.168.0.154') # Enter bridge IP here.
 #b.connect()
 
 lights = b.get_light_objects()
+light = lights[1]
 
-for light in lights:
-	light.brightness = 254
-	light.xy = [random.random(),random.random()]
+green = [0.1972, 0.6796]
+red = [0.657, 0.3199]
+greenx = 0.1972
+greeny = 0.6796
+redx = 0.657
+redy = 0.3199
+bright = 138
 
+light.brightness = bright
 
+y=-0.78229*x + 0.83386
+	
+while True:
+    key = cv2.waitKey(1) & 0xFF
+
+    # if the 'ESC' key is pressed, Quit
+    if key == 27:
+        quit()
+    if key == 0:
+        print "up"
+    elif key == 1:
+        print "down"
+    elif key == 2:
+        print "left"
+    elif key == 3:
+        print "right"
+    # 255 is what the console returns when there is no key press...
+    elif key != 255:
+        print(key)
