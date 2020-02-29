@@ -10,32 +10,10 @@ b.connect()
 
 lights = b.get_light_objects()
 
-k = 0 
-
-for i in range(100):
-	val = input("enter 'b' for blue-er and 'g' for green-er")
-
-	if (val == 'b'): #check what value is entered
-		if (k <= 1):
-			k = 1
-		else:
-			k = k - 1	
-	elif (val == 'g'): 
-		if (k >= 9):
-			k = 9
-		else:
-			k = k + 1
-			
-	k = k/10 #put it into proper format so it works w light funct
-
-	print (k)
+for k in range(0.1,0.9):
 	for light in lights:
-		#light.xy = [random.random(),random.random()]
-		light.xy = [0.1000, k]
-		#light.xy = [0.8524, 0.2154]
+		light.xy = [0.1000, k] 
 		print (light.xy)
-		k = k * 10
-
-#light.xy = [0.8524, 0.2154] is orange
+		
 
 #going from [0.1, 0.1->0.9] turns from blue to green
