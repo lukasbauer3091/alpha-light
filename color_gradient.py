@@ -10,7 +10,8 @@ b.connect()
 
 lights = b.get_light_objects()
 
-for k in range(0.1,0.9):
+for k in range(0,10):
+	k = k/10
 	for light in lights:
 		light.xy = [0.1000, k] 
 		print (light.xy)
