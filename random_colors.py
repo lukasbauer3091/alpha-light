@@ -9,7 +9,6 @@ b = Bridge('192.168.0.154') # Enter bridge IP here.
 b.connect()
 
 lights = b.get_light_objects()
-#lights.xy = [0.1000, 0.1000]
 
 k = 0 
 
@@ -17,8 +16,9 @@ for i in range(100):
 	val = input("enter 'b' for blue-er and 'g' for green-er")
 
 	if (val == 'b'): #check what value is entered
+		#makes sure 0<k<10
 		if (k <= 1):
-			k = 1
+			k = 1 
 		else:
 			k = k - 1	
 	elif (val == 'g'): 
@@ -31,12 +31,8 @@ for i in range(100):
 
 	print (k)
 	for light in lights:
-		#light.xy = [random.random(),random.random()]
-		light.xy = [0.1000, k]
-		#light.xy = [0.8524, 0.2154]
+		light.xy = [0.1000, k] 
 		print (light.xy)
 		k = k * 10
-
-#light.xy = [0.8524, 0.2154] is orange
 
 #going from [0.1, 0.1->0.9] turns from blue to green
