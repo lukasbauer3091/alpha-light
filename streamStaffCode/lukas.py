@@ -77,30 +77,21 @@ while True:
                 if (tempAvg < (avg-avgBuffer)):
                     print("Lower average: Making more green")
                     if (k >= 9):
-			            k = 9
+                        k = 9
                     else:
-			            k = k + 1
+                        k = k + 1
                 elif (tempAvg > (avg+avgBuffer)):
                     print("Higher average: Making more blue")
                     if (k <= 1):
-			            k = 1 
+                        k = 1 
                     else:
-			            k = k - 1
+                        k = k - 1
                 else:
                     print("Within average - staying the same")
+
                 k = k/10 #put it into proper format so it works w light funct
                 light.xy = [0.1000, k]
                 k = k * 10
-
-	k = k/10
-	for light in lights:
-		light.xy = [0.1000, k] 
-		print (light.xy)
-		
-
-
-
-            
 
 inlet.close_stream()
 dummy_streamer.stop()
