@@ -14,6 +14,7 @@ from phue import Bridge #HUE
 b = Bridge('192.168.0.154') 
 b.connect()
 lights = b.get_light_objects()
+k = 0
 
 dummy_streamer = ble2lsl.Dummy(muse2016) #change to Streamer if you want to stream from device
 stream_info = resolve_byprop("type", "EEG") #getStream_info(dummy_streamer)
@@ -72,7 +73,7 @@ while True:
                 #tempAvg = tempAvg/2
                 
                 #going from [0.1, 0.1->0.9] turns from blue to green
-                k = 0
+                
                 if (tempAvg < (avg-avgBuffer)):
                     print("Lower average: Making more green")
                     if (k >= 9):
