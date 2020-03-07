@@ -21,11 +21,14 @@ inlet = StreamInlet(psd, max_chunklen=129, recover=True)
 inlet.open_stream()
 electrodeOut = [0,0,0,0]
 buffer = []
+
 avgCount = 0
 avgLength = 10
-avgBuffer = 0.7
+avgBuffer = 0.4
 tempAvg = 0
 avg = 0
+avgArr = []
+
 print("Calculating average from %d frames." % avgLength)
 print("The buffer for the light to stay the same is: %f" % avgBuffer)
 
@@ -43,29 +46,29 @@ while True:
         while np.size(buffer,1) > 129:
             data = buffer[:,0:129]
             buffer = buffer[:,129:]
-
             if (avgCount < avgLength):
                 electrodeOut[0] = sum(data[1][8:13])
                 electrodeOut[1] = sum(data[2][8:13])
                 electrodeOut[2] = sum(data[3][8:13])
                 electrodeOut[3] = sum(data[4][8:13])
-                avgCount +=1
 
-                avg += sum(electrodeOut)/4
-                #avg = avg/2
-
-
-                print("Calculating average")
-            elif (avgCount == avgLength):
-                print("Average is: %f" % avg)
+                avgArr.append(sum(electrodeOut)/4)  
+                print("Still calculating")
                 avgCount+=1
+            
+            
+            elif (avgCount == avgLength):
+                avg = sum(avgArr)/len(avgArr)
+                print("Average is: %f" % avg)
+                avgCount +=1
+                
             else:
                 electrodeOut[0] = sum(data[1][8:13])
                 electrodeOut[1] = sum(data[2][8:13])
                 electrodeOut[2] = sum(data[3][8:13])
                 electrodeOut[3] = sum(data[4][8:13])
-                tempAvg += sum(electrodeOut)/4
-                #tempAvg = tempAvg/2
+                tempAvg = sum(electrodeOut)/4
+                print(tempAvg)
                 
                 if (tempAvg < (avg-avgBuffer)):
                     print("Lower average: Making more red")
