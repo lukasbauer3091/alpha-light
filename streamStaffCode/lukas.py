@@ -9,7 +9,11 @@ from StreamStaff import getStream_info
 from threads import runFunc
 import threading
 import queue
+from phue import Bridge #HUE 
 
+b = Bridge('192.168.0.154') 
+b.connect()
+lights = b.get_light_objects()
 
 dummy_streamer = ble2lsl.Dummy(muse2016) #change to Streamer if you want to stream from device
 stream_info = resolve_byprop("type", "EEG") #getStream_info(dummy_streamer)
@@ -67,13 +71,33 @@ while True:
                 tempAvg += sum(electrodeOut)/4
                 #tempAvg = tempAvg/2
                 
+                #going from [0.1, 0.1->0.9] turns from blue to green
+                k = 0
                 if (tempAvg < (avg-avgBuffer)):
-                    print("Lower average: Making more red")
+                    print("Lower average: Making more green")
+                    if (k >= 9):
+			            k = 9
+                    else:
+			            k = k + 1
                 elif (tempAvg > (avg+avgBuffer)):
                     print("Higher average: Making more blue")
-
+                    if (k <= 1):
+			            k = 1 
+                    else:
+			            k = k - 1
                 else:
                     print("Within average - staying the same")
+                k = k/10 #put it into proper format so it works w light funct
+                light.xy = [0.1000, k]
+                k = k * 10
+
+	k = k/10
+	for light in lights:
+		light.xy = [0.1000, k] 
+		print (light.xy)
+		
+
+
 
             
 
